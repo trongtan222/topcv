@@ -71,6 +71,13 @@ mvn test
 
 - Collection: [postman/FormManager.postman_collection.json](postman/FormManager.postman_collection.json)
 
+## Submission checklist
+
+- Source code pushed to GitHub
+- README.md with setup/run steps
+- Database schema/migration script: [db/schema.sql](db/schema.sql)
+- Postman collection: [postman/FormManager.postman_collection.json](postman/FormManager.postman_collection.json)
+
 ## API Notes
 
 - `GET /api/forms` supports optional pagination via `page` and `size`.
