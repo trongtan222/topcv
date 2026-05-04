@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Admin - Edit Form</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 24px;
+      }
+      label {
+        display: block;
+        margin-top: 12px;
+      }
+      input,
+      textarea,
+      select {
+        width: 100%;
+        padding: 8px;
+        margin-top: 6px;
+      }
+      .help {
+        color: #666;
+        font-size: 12px;
+      }
+      .actions {
+        margin-top: 16px;
+      }
+      .error {
+        background: #ffe3e3;
+        border: 1px solid #ffb3b3;
+        color: #8a1f1f;
+        padding: 10px;
+        margin: 12px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 th:text="${form.id} != null ? 'Edit Form' : 'Create Form'"></h1>
+    <div th:if="${error}" class="error" th:text="${error}"></div>
+    <form
+      th:action="${form.id} != null ? @{/admin/forms/{id}(id=${form.id})} : @{/admin/forms}"
+      method="post"
+    >
+      <label
+        >Title
+        <input type="text" name="title" th:value="${form.title}" required />
+      </label>
+
+      <label
+        >Description
+        <textarea
+          name="description"
+          rows="3"
+          th:text="${form.description}"
+        ></textarea>
+      </label>
+
+      <label
+        >Order
+        <input
+          type="number"
+          name="displayOrder"
+          min="0"
+          step="1"
+          th:value="${form.displayOrder}"
+          required
+        />
+      </label>
+
+      <label
+        >Status
+        <select name="status">
+          <option value="ACTIVE" th:selected="${form.status} == 'ACTIVE'">
+            ACTIVE
+          </option>
+          <option value="DRAFT" th:selected="${form.status} == 'DRAFT'">
+            DRAFT
+          </option>
+        </select>
+      </label>
+
+      <label
+        >Fields JSON
+        <textarea
+          name="fieldsJson"
+          rows="12"
+          th:text="${fieldsJson}"
+        ></textarea>
+        <div class="help">
+          Example:
+          <pre>
+[{
+  "label": "Age",
+  "type": "number",
+  "displayOrder": 1,
+  "required": true,
+  "options": []
+}, {
+  "label": "Color",
+  "type": "color",
+  "displayOrder": 2,
+  "required": false,
+  "options": []
+}, {
+  "label": "Role",
+  "type": "select",
+  "displayOrder": 3,
+  "required": true,
+  "options": [
+    {"label": "Dev", "value": "dev", "displayOrder": 1},
+    {"label": "QA", "value": "qa", "displayOrder": 2}
+  ]
+}]</pre
+          >
+        </div>
+      </label>
+
+      <div class="actions">
+        <button type="submit">Save</button>
+        <a href="/admin/forms">Back</a>
+      </div>
+    </form>
+  </body>
+</html>

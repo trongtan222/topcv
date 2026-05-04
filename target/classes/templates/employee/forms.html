@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Employee - Forms</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 24px;
+      }
+      ul {
+        padding-left: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Employee - Forms</h1>
+    <ul>
+      <li th:each="form : ${forms}">
+        <a
+          th:href="@{/employee/forms/{id}(id=${form.id})}"
+          th:text="${form.title}"
+        ></a>
+      </li>
+    </ul>
+  </body>
+</html>

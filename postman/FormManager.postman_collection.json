@@ -1,0 +1,178 @@
+{
+  "info": {
+    "name": "Form Manager API",
+    "_postman_id": "3f0d7a5a-7ad7-4a56-9e07-0c5b3c5a5b30",
+    "description": "Postman collection for Form Manager APIs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ],
+  "item": [
+    {
+      "name": "Forms",
+      "item": [
+        {
+          "name": "List forms",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/forms"
+          }
+        },
+        {
+          "name": "List forms (paged)",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/forms?page=0&size=10"
+          }
+        },
+        {
+          "name": "List active forms",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/forms/active"
+          }
+        },
+        {
+          "name": "Get form by id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/forms/1"
+          }
+        },
+        {
+          "name": "Create form",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Demo Form\",\n  \"description\": \"Example form\",\n  \"displayOrder\": 1,\n  \"status\": \"active\",\n  \"fields\": [\n    {\n      \"label\": \"Name\",\n      \"type\": \"text\",\n      \"displayOrder\": 1,\n      \"required\": true,\n      \"options\": []\n    },\n    {\n      \"label\": \"Role\",\n      \"type\": \"select\",\n      \"displayOrder\": 2,\n      \"required\": true,\n      \"options\": [\n        {\n          \"label\": \"Dev\",\n          \"value\": \"dev\",\n          \"displayOrder\": 1\n        },\n        {\n          \"label\": \"QA\",\n          \"value\": \"qa\",\n          \"displayOrder\": 2\n        }\n      ]\n    }\n  ]\n}"
+            }
+          }
+        },
+        {
+          "name": "Update form",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/forms/1",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Demo Form (Updated)\",\n  \"description\": \"Example form\",\n  \"displayOrder\": 1,\n  \"status\": \"active\",\n  \"fields\": []\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete form",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/forms/1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Fields",
+      "item": [
+        {
+          "name": "Add field",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/forms/1/fields",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"label\": \"Age\",\n  \"type\": \"number\",\n  \"displayOrder\": 1,\n  \"required\": true,\n  \"options\": []\n}"
+            }
+          }
+        },
+        {
+          "name": "Update field",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/forms/1/fields/1",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"label\": \"Age\",\n  \"type\": \"number\",\n  \"displayOrder\": 1,\n  \"required\": true,\n  \"options\": []\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete field",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/forms/1/fields/1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Submissions",
+      "item": [
+        {
+          "name": "Submit form",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/forms/1/submit",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"values\": [\n    {\n      \"fieldId\": 1,\n      \"value\": \"Alice\"\n    }\n  ]\n}"
+            }
+          }
+        },
+        {
+          "name": "List submissions",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/submissions?page=0&size=20"
+          }
+        },
+        {
+          "name": "List submissions with values",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/submissions?page=0&size=20&includeValues=true"
+          }
+        },
+        {
+          "name": "List submissions by form",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/forms/1/submissions"
+          }
+        }
+      ]
+    }
+  ]
+}

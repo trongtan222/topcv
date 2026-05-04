@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Employee - Fill Form</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 24px;
+      }
+      label {
+        display: block;
+        margin-top: 12px;
+      }
+      input,
+      select {
+        width: 100%;
+        padding: 8px;
+        margin-top: 6px;
+      }
+      .success {
+        color: #0a7a2f;
+        margin-bottom: 12px;
+      }
+      .hint {
+        color: #666;
+        font-size: 12px;
+        margin-top: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 th:text="${form.title}"></h1>
+    <p th:text="${form.description}"></p>
+    <div th:if="${success}" class="success">Submitted successfully.</div>
+    <form th:action="@{/employee/forms/{id}(id=${form.id})}" method="post">
+      <div th:each="field : ${form.fields}">
+        <label th:text="${field.label}"></label>
+        <div th:switch="${field.type}">
+          <input
+            th:case="TEXT"
+            type="text"
+            th:attr="name='field_' + ${field.id},required=${field.required}"
+          />
+          <input
+            th:case="NUMBER"
+            type="number"
+            step="any"
+            th:attr="name='field_' + ${field.id},required=${field.required}"
+          />
+          <input
+            th:case="DATE"
+            type="date"
+            th:attr="name='field_' + ${field.id},required=${field.required}"
+          />
+          <div th:case="DATE" class="hint">
+            Format: yyyy-MM-dd or dd/MM/yyyy
+          </div>
+          <input
+            th:case="COLOR"
+            type="color"
+            th:attr="name='field_' + ${field.id},required=${field.required}"
+          />
+          <select
+            th:case="SELECT"
+            th:attr="name='field_' + ${field.id},required=${field.required}"
+          >
+            <option value="">-- Select --</option>
+            <option
+              th:each="opt : ${field.options}"
+              th:value="${opt.value}"
+              th:text="${opt.label}"
+            ></option>
+          </select>
+          <input
+            th:case="*"
+            type="text"
+            th:attr="name='field_' + ${field.id},required=${field.required}"
+          />
+        </div>
+      </div>
+      <div style="margin-top: 16px">
+        <button type="submit">Submit</button>
+        <a href="/employee/forms">Back</a>
+      </div>
+    </form>
+  </body>
+</html>
